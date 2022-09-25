@@ -1,10 +1,8 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
-function Calculator() {
+function Calculator({setData}) {
 
     const [sex, setSex] = useState();
-    const [bmr, setBmr] = useState();
-
     const ageRef = useRef(null);
     const weightRef = useRef(null);
     const feetRef = useRef(null);
@@ -27,8 +25,7 @@ function Calculator() {
             return convertWeight(lbs) + convertHeight(inches) - convertAge(years) + 5
         } else {
             return convertWeight(lbs) + convertHeight(inches) - convertAge(years) - 161
-        }
-        
+        }   
     }
 
     function handleSubmit(event) {
@@ -38,9 +35,8 @@ function Calculator() {
         let userFeet = feetRef.current.value
         let userInches = inchesRef.current.value
         let userHeight = (parseInt(userFeet * 12)) + parseInt(userInches)
-        console.log(getBMR(userWeight, userHeight, userAge, sex))
         let userResults = getBMR(userWeight, userHeight, userAge, sex)
-        setBmr(userResults)
+        setData(userResults)
       }
 
   return (

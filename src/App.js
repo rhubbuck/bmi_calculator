@@ -7,19 +7,19 @@ import Table from './Table';
 function App() {
   const [userData, setUserData] = useState();
   const [userOption, setUserOption] = useState();
+  const [userWeight, setUserWeight] = useState();
 
-  function setData(data, option) {
-    console.log(data)
+  function setData(data, option, weight) {
     setUserData(data)
-    console.log(option)
     setUserOption(option)
+    setUserWeight(weight)
   }
 
   return (
     <div className="App">
       <Header />
       <Calculator setData={setData} />
-      <Table userData={userData} userOption={userOption}/>
+      <Table userData={userData} userOption={userOption} userWeight={userWeight}/>
     </div>
   );
 }

@@ -37,7 +37,7 @@ function Calculator({setData}) {
         let userInches = inchesRef.current.value
         let userHeight = (parseInt(userFeet * 12)) + parseInt(userInches)
         let userResults = getBMR(userWeight, userHeight, userAge, sex)
-        setData(userResults, option)
+        setData(userResults, option, userWeight)
       }
 
   return (

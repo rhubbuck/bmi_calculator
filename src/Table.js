@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import Chart from './Chart';
 
-function Table({userData, userOption}) {
+function Table({userData, userOption, userWeight}) {
 
     const [sedentary, setSedentary] = useState();
     const [light, setLight] = useState();
@@ -37,6 +38,7 @@ function Table({userData, userOption}) {
                 <li>Moderate exercise 6-7 days per week : {moderate} cal/day</li>
                 <li>Hard exercise every day : {hard} cal/day</li>
             </ul>
+            <Chart sedentary={sedentary} light={light} moderate={moderate} hard={hard} userWeight={userWeight} />
         </div>
     </div>   
   )

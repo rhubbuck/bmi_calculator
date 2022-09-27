@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 
 function Calculator({setData}) {
 
+    const [option, setOption] = useState('MAINTAIN');
     const [sex, setSex] = useState();
     const ageRef = useRef(null);
     const weightRef = useRef(null);
@@ -36,7 +37,7 @@ function Calculator({setData}) {
         let userInches = inchesRef.current.value
         let userHeight = (parseInt(userFeet * 12)) + parseInt(userInches)
         let userResults = getBMR(userWeight, userHeight, userAge, sex)
-        setData(userResults)
+        setData(userResults, option)
       }
 
   return (
@@ -68,6 +69,21 @@ function Calculator({setData}) {
                     <input ref={inchesRef} required type='number' id='height_inches' className='appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-1/4 mx-2'></input>
                 </div>
             </div>
+            <h3 className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-4'>What is your goal?</h3>
+            <fieldset className='flex w-full justify-center my-3' onChange={event => setOption(event.target.value)}>
+                    <div className='mx-4'>
+                        <input type='radio' name='maintain' id='cut' value='CUT'></input>
+                        <label htmlFor='male' className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Cut</label>
+                    </div>
+                    <div className='mx-4'>
+                        <input defaultChecked type='radio' name='maintain' id='maintain' value='MAINTAIN'></input>
+                        <label htmlFor='female' className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Maintain</label>
+                    </div>
+                    <div className='mx-4'>
+                        <input type='radio' name='maintain' id='bulk' value='GAIN'></input>
+                        <label htmlFor='female' className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Bulk</label>
+                    </div>
+                </fieldset>
             <button type='submit' className='shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mt-6'>Submit</button>
         </form>
     </div>

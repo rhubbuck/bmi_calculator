@@ -44,14 +44,15 @@ function Chart({ sedentary, light, moderate, hard, userWeight, calories, userOpt
    const [dataArray, setDataArray] = useState([]);
 
    useEffect(() => {
-      setProtein(userWeight * 1.2)
+      // setProtein(userWeight * 1.2)
       if (userOption === 'CUT') {
+         setProtein(userWeight * 1)
          setFat(((calories * .25) / 9).toFixed(1))
-         setCarbs(((calories - (((userWeight * 1.2) * 4) + (calories * .25))) / 4).toFixed(1))
+         setCarbs(((calories - (((userWeight * 1) * 4) + (calories * .25))) / 4).toFixed(1))
          let array = [
             {
                name: 'Protein',
-               value: userWeight * 1.2
+               value: userWeight * 1
             }, 
             {
                name: 'Fat', 
@@ -59,12 +60,13 @@ function Chart({ sedentary, light, moderate, hard, userWeight, calories, userOpt
             },
             {
                name: 'Carbs',
-               value: parseInt(((calories - (((userWeight * 1.2) * 4) + (calories * .25))) / 4).toFixed(1))
+               value: parseInt(((calories - (((userWeight * 1) * 4) + (calories * .25))) / 4).toFixed(1))
             }
          ]
          console.log(array)
          setDataArray(array)
       } else {
+         setProtein(userWeight * 1.2)
          setFat(((calories * .3) / 9).toFixed(1))
          setCarbs(((calories - (((userWeight * 1.2) * 4) + (calories * .3))) / 4).toFixed(1))
          let array = [

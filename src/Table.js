@@ -17,15 +17,15 @@ function Table({userData, userOption, userWeight}) {
             setModerate(parseInt(userData * 1.55))
             setHard(parseInt(userData * 1.725))
         } else if (userOption === 'GAIN') {
-            setSedentary((parseInt(userData * 1.2)) + 500)
-            setLight((parseInt(userData * 1.375)) + 500)
-            setModerate((parseInt(userData * 1.55)) + 500)
-            setHard((parseInt(userData * 1.725)) + 500)
+            setSedentary(Math.round((parseInt(userData * 1.2)) * 1.2))
+            setLight(Math.round((parseInt(userData * 1.375)) * 1.2))
+            setModerate(Math.round((parseInt(userData * 1.55)) * 1.2))
+            setHard(Math.round((parseInt(userData * 1.725)) * 1.2))
         } else {
-            setSedentary((parseInt(userData * 1.2)) - 500)
-            setLight((parseInt(userData * 1.375)) - 500)
-            setModerate((parseInt(userData * 1.55)) - 500)
-            setHard((parseInt(userData * 1.725)) - 500)
+            setSedentary(Math.round((parseInt(userData * 1.2)) * .8))
+            setLight(Math.round((parseInt(userData * 1.375)) * .8))
+            setModerate(Math.round((parseInt(userData * 1.55)) * .8))
+            setHard(Math.round((parseInt(userData * 1.725)) * .8))
         }
     }, [userOption])
   
@@ -39,7 +39,7 @@ function Table({userData, userOption, userWeight}) {
                 <li onClick={(e) => {setCalories(moderate)}}>Moderate exercise 6-7 days per week : {moderate} cal/day</li>
                 <li onClick={(e) => {setCalories(hard)}}>Hard exercise every day : {hard} cal/day</li>
             </ul>
-            <Chart sedentary={sedentary} light={light} moderate={moderate} hard={hard} userWeight={userWeight} calories={calories} />
+            <Chart sedentary={sedentary} light={light} moderate={moderate} hard={hard} userWeight={userWeight} calories={calories} userOption={userOption} />
         </div>
     </div>   
   )

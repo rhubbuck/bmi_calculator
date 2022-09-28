@@ -1,27 +1,20 @@
+import { data } from 'autoprefixer';
 import React, { useState, useEffect } from 'react'
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
 const COLORS = ["#8884d8", "#82ca9d", "#FFBB28", "#FF8042", "#AF19FF"];
 const pieData = [
       {
-         name: "Apple",
-         value: 74.85
+         name: "Protein",
+         value: 228
       },
       {
-         name: "Samsung",
-         value: 47.91
+         name: "Fat",
+         value: 130
       },
       {
-         name: "Redmi",
-         value: 16.85
-      },
-      {
-         name: "One Plus",
-         value: 16.14
-      },
-      {
-         name: "Others",
-         value: 10.25
+         name: "Carbs",
+         value: 459
       }
    ];
 
@@ -36,14 +29,14 @@ const CustomTooltip = ({ active, payload, label }) => {
              border: "1px solid #cccc"
           }}
        >
-          <label>{`${payload[0].name} : ${payload[0].value}%`}</label>
+          <label>{`${payload[0].name} : ${payload[0].value} g.`}</label>
        </div>
     );
  }
  return null;
 };
 
-function Chart({ sedentary, light, moderate, hard, userWeight, calories }) {
+function Chart({ sedentary, light, moderate, hard, userWeight, calories, userOption }) {
 
    const [protein, setProtein] = useState();
    const [fat, setFat] = useState();
@@ -52,32 +45,56 @@ function Chart({ sedentary, light, moderate, hard, userWeight, calories }) {
 
    useEffect(() => {
       setProtein(userWeight * 1.2)
-      setFat(((calories * .3) / 9).toFixed(1))
-      setCarbs(((calories - (((userWeight * 1.2) * 4) + (calories * .3))) / 4).toFixed(1))
-      let array = [
-         {
-            name: 'protein',
-            value: userWeight * 1.2
-         }, 
-         {
-            name: 'fat', 
-            value: ((calories * .3) / 9).toFixed(1)
-         },
-         {
-            name: 'carbs',
-            value: ((calories - (((userWeight * 1.2) * 4) + (calories * .3))) / 4).toFixed(1)
-         }
-      ]
+      if (userOption === 'CUT') {
+         setFat(((calories * .25) / 9).toFixed(1))
+         setCarbs(((calories - (((userWeight * 1.2) * 4) + (calories * .25))) / 4).toFixed(1))
+         let array = [
+            {
+               name: 'Protein',
+               value: userWeight * 1.2
+            }, 
+            {
+               name: 'Fat', 
+               value: parseInt(((calories * .25) / 9).toFixed(1))
+            },
+            {
+               name: 'Carbs',
+               value: parseInt(((calories - (((userWeight * 1.2) * 4) + (calories * .25))) / 4).toFixed(1))
+            }
+         ]
+         console.log(array)
+         setDataArray(array)
+      } else {
+         setFat(((calories * .3) / 9).toFixed(1))
+         setCarbs(((calories - (((userWeight * 1.2) * 4) + (calories * .3))) / 4).toFixed(1))
+         let array = [
+            {
+               name: 'Protein',
+               value: userWeight * 1.2
+            }, 
+            {
+               name: 'Fat', 
+               value: parseInt(((calories * .3) / 9).toFixed(1))
+            },
+            {
+               name: 'Carbs',
+               value: parseInt(((calories - (((userWeight * 1.2) * 4) + (calories * .3))) / 4).toFixed(1))
+            }
+         ]
       console.log(array)
       setDataArray(array)
-      console.log(dataArray)
+      }
    }, [userWeight, calories])
+   
+   useEffect(() => {
+      console.log(dataArray)
+   }, [dataArray])
 
   return (
    <div>
     <PieChart width={730} height={350}>
       <Pie
-         data={pieData}
+         data={dataArray}
          color="#000000"
          dataKey="value"
          nameKey="name"
@@ -88,7 +105,7 @@ function Chart({ sedentary, light, moderate, hard, userWeight, calories }) {
          label
          isAnimationActive={false}
       >
-         {pieData.map((entry, index) => (
+         {dataArray.map((entry, index) => (
             <Cell
                key={`cell-${index}`}
                fill={COLORS[index % COLORS.length]}
@@ -99,6 +116,7 @@ function Chart({ sedentary, light, moderate, hard, userWeight, calories }) {
       <Legend />
       </PieChart>
       <p>{calories} calories, {protein}g protein, {fat}g fat, {carbs}g carbs</p>
+      {dataArray.map(item => console.log(item))}
       </div>
   )
 }

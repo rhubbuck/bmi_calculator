@@ -5,7 +5,7 @@ const COLORS = ["#8884d8", "#82ca9d", "#FFBB28", "#FF8042", "#AF19FF"];
 const pieData = [
       {
          name: "Apple",
-         value: 54.85
+         value: 74.85
       },
       {
          name: "Samsung",
@@ -43,20 +43,35 @@ const CustomTooltip = ({ active, payload, label }) => {
  return null;
 };
 
-function Chart({ sedentary, light, moderate, hard, userWeight }) {
+function Chart({ sedentary, light, moderate, hard, userWeight, calories }) {
 
    const [protein, setProtein] = useState();
    const [fat, setFat] = useState();
    const [carbs, setCarbs] = useState();
+   const [dataArray, setDataArray] = useState([]);
 
    useEffect(() => {
       setProtein(userWeight * 1.2)
-      setFat(((sedentary * .3) / 9).toFixed(1))
-      let proteinCal = (protein * 4)
-      let fatCal = (fat * 9)
-      console.log((parseInt(sedentary) - proteinCal - fatCal) / 4)
-      setCarbs(((parseInt(sedentary) - proteinCal - fatCal) / 4).toFixed(1))
-   }, [userWeight, sedentary])
+      setFat(((calories * .3) / 9).toFixed(1))
+      setCarbs(((calories - (((userWeight * 1.2) * 4) + (calories * .3))) / 4).toFixed(1))
+      let array = [
+         {
+            name: 'protein',
+            value: userWeight * 1.2
+         }, 
+         {
+            name: 'fat', 
+            value: ((calories * .3) / 9).toFixed(1)
+         },
+         {
+            name: 'carbs',
+            value: ((calories - (((userWeight * 1.2) * 4) + (calories * .3))) / 4).toFixed(1)
+         }
+      ]
+      console.log(array)
+      setDataArray(array)
+      console.log(dataArray)
+   }, [userWeight, calories])
 
   return (
    <div>
@@ -83,7 +98,7 @@ function Chart({ sedentary, light, moderate, hard, userWeight }) {
       <Tooltip content={<CustomTooltip />} />
       <Legend />
       </PieChart>
-      <p>{sedentary} calories, {protein}g protein, {fat}g fat, {carbs}g carbs</p>
+      <p>{calories} calories, {protein}g protein, {fat}g fat, {carbs}g carbs</p>
       </div>
   )
 }

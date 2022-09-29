@@ -8,6 +8,7 @@ function Calculator({setData}) {
     const weightRef = useRef(null);
     const feetRef = useRef(null);
     const inchesRef = useRef(null);
+    const formRef = useRef(null);
 
     function convertWeight (lbs) {
         return 10 * (lbs / 2.205)
@@ -21,28 +22,35 @@ function Calculator({setData}) {
         return 5 * years
     }
 
-    function getBMR (lbs, inches, years, sex) {
-        if (sex === 'MALE') {
+    function getMaleBMR (lbs, inches, years) {
             return convertWeight(lbs) + convertHeight(inches) - convertAge(years) + 5
-        } else {
-            return convertWeight(lbs) + convertHeight(inches) - convertAge(years) - 161
-        }   
+    }
+
+    function getFemaleBMR (lbs, inches, years) {
+            return convertWeight(lbs) + convertHeight(inches) - convertAge(years) - 161  
     }
 
     function handleSubmit(event) {
         event.preventDefault();
+        console.log(sex)
         let userAge = ageRef.current.value
         let userWeight = weightRef.current.value
         let userFeet = feetRef.current.value
         let userInches = inchesRef.current.value
         let userHeight = (parseInt(userFeet * 12)) + parseInt(userInches)
-        let userResults = getBMR(userWeight, userHeight, userAge, sex)
-        setData(userResults, option, userWeight)
+        if (sex === 'MALE') {
+            let userResults = getMaleBMR(userWeight, userHeight, userAge)
+            setData(userResults, option, userWeight)
+        } else {
+            let userResults = getFemaleBMR(userWeight, userHeight, userAge)
+            setData(userResults, option, userWeight)
+        }
+        formRef.current.reset()
       }
 
   return (
-    <div>Calculator
-        <form onSubmit={handleSubmit} className='border border-black bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/4'>
+    <div className='bg-red-200'>
+        <form ref={formRef} onSubmit={handleSubmit} className='border border-black bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'>
             <div className='flex flex-col items-center my-5'>
                 <label htmlFor='age' className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Age</label>
                 <input ref={ageRef} required type='number' id='age' className='appearance-none block w-1/2 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'></input>

@@ -3,20 +3,6 @@ import React, { useState, useEffect } from 'react'
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
 const COLORS = ["#8884d8", "#82ca9d", "#FFBB28", "#FF8042", "#AF19FF"];
-const pieData = [
-      {
-         name: "Protein",
-         value: 228
-      },
-      {
-         name: "Fat",
-         value: 130
-      },
-      {
-         name: "Carbs",
-         value: 459
-      }
-   ];
 
 const CustomTooltip = ({ active, payload, label }) => {
     if (active) {
@@ -88,9 +74,9 @@ function Chart({ sedentary, light, moderate, hard, userWeight, calories, userOpt
       }
    }, [userWeight, calories])
    
-   useEffect(() => {
-      console.log(dataArray)
-   }, [dataArray])
+   // useEffect(() => {
+   //    console.log(dataArray)
+   // }, [dataArray])
 
   return (
    <div>
@@ -117,8 +103,8 @@ function Chart({ sedentary, light, moderate, hard, userWeight, calories, userOpt
       <Tooltip content={<CustomTooltip />} />
       <Legend />
       </PieChart>
-      <p>{calories} calories, {protein}g protein, {fat}g fat, {carbs}g carbs</p>
-      {dataArray.map(item => console.log(item))}
+      <p>{protein}g protein, {fat}g fat, {carbs}g carbs</p>
+      {/* {dataArray.map(item => console.log(item))} */}
       </div>
   )
 }

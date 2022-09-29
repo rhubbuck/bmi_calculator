@@ -18,8 +18,10 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Calculator setData={setData} />
-      <Table userData={userData} userOption={userOption} userWeight={userWeight}/>
+      <div className='flex w-full justify-between'>
+        <Calculator setData={setData} />
+        <Table userData={userData} userOption={userOption} userWeight={userWeight}/>
+      </div>
     </div>
   );
 }

@@ -27,17 +27,17 @@ function Table({userData, userOption, userWeight}) {
             setModerate(Math.round((parseInt(userData * 1.55)) * .8))
             setHard(Math.round((parseInt(userData * 1.725)) * .8))
         }
-    }, [userOption])
+    }, [userOption, userData])
   
   return (
-    <div>
+    <div className='bg-blue-200'>
         <div>
-            <h2>Calorie Requirements</h2>
+            <h2 className='text-left text-lg mb-2'>Calorie Requirements</h2>
             <ul>
-                <li onClick={(e) => {setCalories(sedentary)}}>Sedentary : {sedentary} cal/day</li>
-                <li onClick={(e) => {setCalories(light)}}>Light exercise 1-3 days per week : {light} cal/day</li>
-                <li onClick={(e) => {setCalories(moderate)}}>Moderate exercise 6-7 days per week : {moderate} cal/day</li>
-                <li onClick={(e) => {setCalories(hard)}}>Hard exercise every day : {hard} cal/day</li>
+                <li className='cursor-pointer' onClick={(e) => {setCalories(sedentary)}}>Sedentary : {sedentary} cal/day</li>
+                <li className='cursor-pointer' onClick={(e) => {setCalories(light)}}>Light activity : exercise 1-3 days per week : {light} cal/day</li>
+                <li className='cursor-pointer' onClick={(e) => {setCalories(moderate)}}>Moderate activity : exercise 4-6 days per week : {moderate} cal/day</li>
+                <li className='cursor-pointer' onClick={(e) => {setCalories(hard)}}>Heavy activity : exercise every day : {hard} cal/day</li>
             </ul>
             <Chart sedentary={sedentary} light={light} moderate={moderate} hard={hard} userWeight={userWeight} calories={calories} userOption={userOption} />
         </div>

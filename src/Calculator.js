@@ -49,7 +49,7 @@ function Calculator({setData}) {
       }
 
   return (
-    <div className='bg-red-200'>
+    <div>
         <form ref={formRef} onSubmit={handleSubmit} className='border border-black bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'>
             <div className='flex flex-col items-center my-5'>
                 <label htmlFor='age' className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Age</label>

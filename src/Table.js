@@ -30,7 +30,7 @@ function Table({userData, userOption, userWeight}) {
     }, [userOption, userData])
   
   return (
-    <div className='bg-blue-200'>
+    <div>
         <div>
             <h2 className='text-left text-lg mb-2'>Calorie Requirements</h2>
             <ul>

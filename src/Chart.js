@@ -22,7 +22,7 @@ const CustomTooltip = ({ active, payload, label }) => {
  return null;
 };
 
-function Chart({ sedentary, light, moderate, hard, userWeight, calories, userOption }) {
+function Chart({ sedentary, light, moderate, hard, userWeight, calories, userOption, showMacros }) {
 
    const [protein, setProtein] = useState();
    const [fat, setFat] = useState();
@@ -80,6 +80,36 @@ function Chart({ sedentary, light, moderate, hard, userWeight, calories, userOpt
 
   return (
    <div>
+   {showMacros ? 
+      <div>
+      <PieChart width={730} height={350}>
+      <Pie
+         data={dataArray}
+         color="#000000"
+         dataKey="value"
+         nameKey="name"
+         cx="50%"
+         cy="50%"
+         outerRadius={120}
+         fill="#8884d8"
+         label
+         isAnimationActive={false}
+      >
+         {dataArray.map((entry, index) => (
+            <Cell
+               key={`cell-${index}`}
+               fill={COLORS[index % COLORS.length]}
+            />
+         ))}
+      </Pie>
+      <Tooltip content={<CustomTooltip />} />
+      <Legend />
+   </PieChart>
+   <p>{protein}g protein, {fat}g fat, {carbs}g carbs</p>
+      </div>
+      : null
+   }
+   {/* {showMacros ? 
     <PieChart width={730} height={350}>
       <Pie
          data={dataArray}
@@ -102,10 +132,10 @@ function Chart({ sedentary, light, moderate, hard, userWeight, calories, userOpt
       </Pie>
       <Tooltip content={<CustomTooltip />} />
       <Legend />
-      </PieChart>
-      <p>{protein}g protein, {fat}g fat, {carbs}g carbs</p>
-      {/* {dataArray.map(item => console.log(item))} */}
-      </div>
+   </PieChart>
+   : null }
+   {showMacros ? <p>{protein}g protein, {fat}g fat, {carbs}g carbs</p> : null} */}
+   </div>
   )
 }
 

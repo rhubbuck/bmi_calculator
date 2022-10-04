@@ -50,7 +50,7 @@ function Calculator({setData}) {
 
   return (
     <div>
-        <form ref={formRef} onSubmit={handleSubmit} className='border border-black bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'>
+        <form ref={formRef} onSubmit={handleSubmit} className='border border-black bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-32'>
             <div className='flex flex-col items-center my-5'>
                 <label htmlFor='age' className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Age</label>
                 <input ref={ageRef} required type='number' id='age' className='appearance-none block w-1/2 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'></input>
